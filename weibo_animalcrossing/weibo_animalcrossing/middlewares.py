@@ -148,20 +148,23 @@ class ProxyMiddleware():
                 for p in data_list:
                     proxy_ip = p.get('ip')
                     proxy_port = p.get('port')
-                    proxy = proxy_ip + ':' + proxy_port
+                    proxy = str(proxy_ip) + ':' + str(proxy_port)
                     proxy_list.append(proxy)
-                for i in random.randint(0, 21):
-                    return proxy_list[i]
+            try:
+                proxy = proxy_list[random.randint(0, len(proxy_list))]
+                return proxy
+            except:
+                return False
         except requests.ConnectionError:
             return False
 
     def process_request(self, request, spider):
-        if request.meta.get('retry_times'):
-            proxy = self.get_random_proxy()
-            if proxy:
-                uri = 'https://{proxy}'.format(proxy=proxy)
-                self.logger.debug('使用代理' + proxy)
-                request.meta['proxy'] = uri
+        #if request.meta.get('retry_times'):
+        proxy = self.get_random_proxy()
+        if proxy:
+            uri = 'https://{proxy}'.format(proxy=proxy)
+            self.logger.debug('使用代理' + proxy)
+            request.meta['proxy'] = uri
 
     @classmethod
     def from_crawler(cls, crawler):
