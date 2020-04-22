@@ -15,7 +15,7 @@ class WeiboAnimalcrossingItem(scrapy.Item):
     id = scrapy.Field()#用户id
     screen_name = scrapy.Field()#用户名
     verified = scrapy.Field()#true为认证用户，false为无认证用户
-    verified_type = scrapy.Field()#0为黄V，-1为普通用户
+    verified_type = scrapy.Field()#0为黄V，-1为普通用户,2为蓝V
     verified_reason = scrapy.Field()#认证类型
     created_at = scrapy.Field()#发布时间
     profile_url = scrapy.Field()#用户主页链接
