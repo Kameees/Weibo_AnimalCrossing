@@ -23,14 +23,13 @@ NEWSPIDER_MODULE = 'weibo_animalcrossing.spiders'
 ROBOTSTXT_OBEY = False
 
 DEFAULT_REQUEST_HEADERS = {
-    'Accept': 'application/json, text/plain, */*',
-    'Accept-Encoding': 'gzip, deflate, sdch',
-    'Accept-Language': 'zh-CN,zh;q=0.8,en;q=0.6,ja;q=0.4,zh-TW;q=0.2,mt;q=0.2',
-    'Connection': 'keep-alive',
     'Host': 'm.weibo.cn',
-    'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_12_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/59.0.3071.115 Safari/537.36',
+    'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:75.0) Gecko/20100101 Firefox/75.0',
+    'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8',
+    'Accept-Language': 'zh-CN,zh;q=0.8,zh-TW;q=0.7,zh-HK;q=0.5,en-US;q=0.3,en;q=0.2',
+    'Accept-Encoding': 'gzip, deflate, br',
     'X-Requested-With': 'XMLHttpRequest',
-}
+   }
 
 # Configure maximum concurrent requests performed by Scrapy (default: 16)
 #CONCURRENT_REQUESTS = 32
@@ -64,8 +63,8 @@ DOWNLOAD_DELAY = 1
 # Enable or disable downloader middlewares
 # See https://docs.scrapy.org/en/latest/topics/downloader-middleware.html
 DOWNLOADER_MIDDLEWARES = {
-    'weibo_animalcrossing.middlewares.CookiesMiddleware': 554,
-    'weibo_animalcrossing.middlewares.ProxyMiddleware': 555,
+    #'weibo_animalcrossing.middlewares.CookiesMiddleware': 554,
+    'weibo_animalcrossing.middlewares.ProxyMiddleware': 100,
 }
 
 # Enable or disable extensions
@@ -109,6 +108,6 @@ MONGO_DATABASE = 'weibo'
 
 COOKIES_URL = 'http://localhost:5000/weibo/random'
 
-PROXY_URL = 'http://localhost:5555/random'
+PROXY_URL = 'http://webapi.http.zhimacangku.com/getip?num=20&type=2&pro=&city=0&yys=0&port=1&pack=94251&ts=0&ys=0&cs=0&lb=1&sb=0&pb=4&mr=1&regions='
 
 RETRY_HTTP_CODES = [401, 403, 408, 414, 500, 502, 503, 504]

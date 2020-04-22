@@ -6,6 +6,7 @@
 # https://docs.scrapy.org/en/latest/topics/spider-middleware.html
 import json
 import logging
+import random
 
 import requests
 from scrapy import signals
@@ -141,9 +142,16 @@ class ProxyMiddleware():
     def get_random_proxy(self):
         try:
             response = requests.get(self.proxy_url)
+            proxy_list = []
             if response.status_code == 200:
-                proxy = response.text
-                return proxy
+                data_list = json.loads(response.text).get('data')
+                for p in data_list:
+                    proxy_ip = p.get('ip')
+                    proxy_port = p.get('port')
+                    proxy = proxy_ip + ':' + proxy_port
+                    proxy_list.append(proxy)
+                for i in random.randint(0, 21):
+                    return proxy_list[i]
         except requests.ConnectionError:
             return False
 
