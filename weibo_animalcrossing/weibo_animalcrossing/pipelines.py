@@ -65,7 +65,7 @@ class MongoPipeline(object):
 class CsvPipeline(object):
 
     def open_spider(self, spider):
-        self.file = open('car.csv', 'w', newline='', encoding='utf-8-sig')
+        self.file = open('weibo.csv', 'w', newline='', encoding='utf-8-sig')
         self.writer = csv.writer(self.file)
         self.writer.writerow(['id', 'screen_name', 'verified', 'verified_type', 'verified_reason', 'created_at', 'profile_url', 'description', 'gender', 'text', 'reposts_count', 'comments_count', 'attitudes_count', 'scheme'])
 
