@@ -11,7 +11,7 @@ import scrapy
 class WeiboAnimalcrossingItem(scrapy.Item):
     # define the fields for your item here like:
     # name = scrapy.Field()
-    collection = 'users'
+    collection = 'weibousers'
     id = scrapy.Field()#用户id
     screen_name = scrapy.Field()#用户名
     verified = scrapy.Field()#true为认证用户，false为无认证用户

@@ -28,7 +28,6 @@ DEFAULT_REQUEST_HEADERS = {
     'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8',
     'Accept-Language': 'zh-CN,zh;q=0.8,zh-TW;q=0.7,zh-HK;q=0.5,en-US;q=0.3,en;q=0.2',
     'Accept-Encoding': 'gzip, deflate, br',
-    'X-Requested-With': 'XMLHttpRequest',
    }
 
 # Configure maximum concurrent requests performed by Scrapy (default: 16)
@@ -37,7 +36,7 @@ DEFAULT_REQUEST_HEADERS = {
 # Configure a delay for requests for the same website (default: 0)
 # See https://docs.scrapy.org/en/latest/topics/settings.html#download-delay
 # See also autothrottle settings and docs
-DOWNLOAD_DELAY = 10
+DOWNLOAD_DELAY = 5
 # The download delay setting will honor only one of:
 #CONCURRENT_REQUESTS_PER_DOMAIN = 16
 #CONCURRENT_REQUESTS_PER_IP = 16
@@ -64,7 +63,7 @@ DOWNLOAD_DELAY = 10
 # See https://docs.scrapy.org/en/latest/topics/downloader-middleware.html
 DOWNLOADER_MIDDLEWARES = {
     #'weibo_animalcrossing.middlewares.CookiesMiddleware': 554,
-    'weibo_animalcrossing.middlewares.ProxyMiddleware': 100,
+    'weibo_animalcrossing.middlewares.ProxyMiddleware': 90,
 }
 
 # Enable or disable extensions
@@ -110,4 +109,8 @@ COOKIES_URL = 'http://localhost:5000/weibo/random'
 
 PROXY_URL = 'http://webapi.http.zhimacangku.com/getip?num=100&type=2&pro=&city=0&yys=0&port=1&time=3&ts=0&ys=0&cs=0&lb=1&sb=0&pb=4&mr=1&regions='
 
-RETRY_HTTP_CODES = [401, 403, 408, 414, 500, 502, 503, 504]
+RETRY_ENABLED: True
+
+RETRY_HTTP_CODES = [301, 401, 403, 408, 414, 500, 502, 503, 504]
+
+RETRY_TIMES = 10

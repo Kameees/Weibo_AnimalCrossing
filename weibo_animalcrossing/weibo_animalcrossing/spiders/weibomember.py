@@ -21,30 +21,32 @@ class WeibomemberSpider(scrapy.Spider):
             :return:
         """
         result = json.loads(response.text)
+        print(result)
         since_id = result.get('data').get('pageInfo').get('since_id')
-        if result.get('ok') and result.get('data').get('cards')[1].get('card_group'):
-            weibos = result.get('data').get('cards')[1].get('card_group')
-            print(since_id)
+        print(since_id)
+        cards = len(result.get('data').get('cards'))
+        if result.get('ok') and result.get('data').get('cards')[cards-1].get('card_group'):
+            weibos = result.get('data').get('cards')[cards-1].get('card_group')
             for weibo in weibos:
                 mblog = weibo.get('mblog')
                 user = mblog.get('user')
-                # if mblog:
-                weibo_item = WeiboAnimalcrossingItem()
-                weibo_item['id'] = user.get('id')
-                weibo_item['screen_name'] = user.get('screen_name')
-                weibo_item['created_at'] = mblog.get('created_at')
-                weibo_item['profile_url'] = user.get('profile_url')
-                weibo_item['description'] = user.get('description')
-                weibo_item['gender'] = user.get('gender')
-                weibo_item['text'] = mblog.get('text')
-                weibo_item['reposts_count'] = mblog.get('reposts_count')
-                weibo_item['comments_count'] = mblog.get('comments_count')
-                weibo_item['attitudes_count'] = mblog.get('attitudes_count')
-                weibo_item['verified'] = user.get('verified')
-                weibo_item['verified_type'] = user.get('verified_type')
-                weibo_item['verified_reason'] = user.get('verified_reason')
-                weibo_item['scheme'] = weibo.get('scheme')
-                yield weibo_item
+                if mblog:
+                    weibo_item = WeiboAnimalcrossingItem()
+                    weibo_item['id'] = user.get('id')
+                    weibo_item['screen_name'] = user.get('screen_name')
+                    weibo_item['created_at'] = mblog.get('created_at')
+                    weibo_item['profile_url'] = user.get('profile_url')
+                    weibo_item['description'] = user.get('description')
+                    weibo_item['gender'] = user.get('gender')
+                    weibo_item['text'] = mblog.get('text')
+                    weibo_item['reposts_count'] = mblog.get('reposts_count')
+                    weibo_item['comments_count'] = mblog.get('comments_count')
+                    weibo_item['attitudes_count'] = mblog.get('attitudes_count')
+                    weibo_item['verified'] = user.get('verified')
+                    weibo_item['verified_type'] = user.get('verified_type')
+                    weibo_item['verified_reason'] = user.get('verified_reason')
+                    weibo_item['scheme'] = weibo.get('scheme')
+                    yield weibo_item
         yield scrapy.Request(self.next_url.format(since_id=since_id), callback=self.weibo_parse)
 
     def weibo_parse(self, response):
@@ -55,26 +57,27 @@ class WeibomemberSpider(scrapy.Spider):
         """
         result = json.loads(response.text)
         since_id = result.get('data').get('pageInfo').get('since_id')
-        if result.get('ok') and result.get('data').get('cards')[0].get('card_group'):
-            weibos = result.get('data').get('cards')[0].get('card_group')
+        cards = result.get('data').get('cards')
+        if result.get('ok') and cards[len(cards)-1].get('card_group'):
+            weibos = cards[len(cards)-1].get('card_group')
             for weibo in weibos:
                 mblog = weibo.get('mblog')
                 user = mblog.get('user')
-                #if mblog:
-                weibo_item = WeiboAnimalcrossingItem()
-                weibo_item['id'] = user.get('id')
-                weibo_item['screen_name'] = user.get('screen_name')
-                weibo_item['created_at'] = mblog.get('created_at')
-                weibo_item['profile_url'] = user.get('profile_url')
-                weibo_item['description'] = user.get('description')
-                weibo_item['gender'] = user.get('gender')
-                weibo_item['text'] = mblog.get('text')
-                weibo_item['reposts_count'] = mblog.get('reposts_count')
-                weibo_item['comments_count'] = mblog.get('comments_count')
-                weibo_item['attitudes_count'] = mblog.get('attitudes_count')
-                weibo_item['verified'] = user.get('verified')
-                weibo_item['verified_type'] = user.get('verified_type')
-                weibo_item['verified_reason'] = user.get('verified_reason')
-                weibo_item['scheme'] = weibo.get('scheme')
-                yield weibo_item
+                if mblog:
+                    weibo_item = WeiboAnimalcrossingItem()
+                    weibo_item['id'] = user.get('id')
+                    weibo_item['screen_name'] = user.get('screen_name')
+                    weibo_item['created_at'] = mblog.get('created_at')
+                    weibo_item['profile_url'] = user.get('profile_url')
+                    weibo_item['description'] = user.get('description')
+                    weibo_item['gender'] = user.get('gender')
+                    weibo_item['text'] = mblog.get('text')
+                    weibo_item['reposts_count'] = mblog.get('reposts_count')
+                    weibo_item['comments_count'] = mblog.get('comments_count')
+                    weibo_item['attitudes_count'] = mblog.get('attitudes_count')
+                    weibo_item['verified'] = user.get('verified')
+                    weibo_item['verified_type'] = user.get('verified_type')
+                    weibo_item['verified_reason'] = user.get('verified_reason')
+                    weibo_item['scheme'] = weibo.get('scheme')
+                    yield weibo_item
         yield scrapy.Request(self.next_url.format(since_id=since_id), callback=self.weibo_parse)
