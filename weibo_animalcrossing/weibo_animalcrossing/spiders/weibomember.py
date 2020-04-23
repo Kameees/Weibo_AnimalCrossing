@@ -21,9 +21,7 @@ class WeibomemberSpider(scrapy.Spider):
             :return:
         """
         result = json.loads(response.text)
-        print(result)
         since_id = result.get('data').get('pageInfo').get('since_id')
-        print(since_id)
         cards = len(result.get('data').get('cards'))
         if result.get('ok') and result.get('data').get('cards')[cards-1].get('card_group'):
             weibos = result.get('data').get('cards')[cards-1].get('card_group')
@@ -56,10 +54,13 @@ class WeibomemberSpider(scrapy.Spider):
         :return:
         """
         result = json.loads(response.text)
-        since_id = result.get('data').get('pageInfo').get('since_id')
+        try:
+            since_id = result.get('data').get('pageInfo').get('since_id')
+        except:
+            since_id = response.meta.get('since_id')
         cards = result.get('data').get('cards')
-        if result.get('ok') and cards[len(cards)-1].get('card_group'):
-            weibos = cards[len(cards)-1].get('card_group')
+        if result.get('ok') and cards[0].get('card_group'):
+            weibos = cards[0].get('card_group')
             for weibo in weibos:
                 mblog = weibo.get('mblog')
                 user = mblog.get('user')
@@ -80,4 +81,4 @@ class WeibomemberSpider(scrapy.Spider):
                     weibo_item['verified_reason'] = user.get('verified_reason')
                     weibo_item['scheme'] = weibo.get('scheme')
                     yield weibo_item
-        yield scrapy.Request(self.next_url.format(since_id=since_id), callback=self.weibo_parse)
+        yield scrapy.Request(self.next_url.format(since_id=since_id), callback=self.weibo_parse, meta={'since_id': since_id})
