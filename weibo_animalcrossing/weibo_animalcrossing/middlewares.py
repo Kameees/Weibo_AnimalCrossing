@@ -7,6 +7,7 @@
 import json
 import logging
 import random
+import telnetlib
 
 import requests
 from scrapy import signals
@@ -141,15 +142,17 @@ class ProxyMiddleware():
 
     def get_random_proxy(self):
         try:
-            response = requests.get(self.proxy_url)
             proxy_list = []
-            if response.status_code == 200:
-                data_list = json.loads(response.text).get('data')
-                for p in data_list:
-                    proxy_ip = p.get('ip')
-                    proxy_port = p.get('port')
-                    proxy = str(proxy_ip) + ':' + str(proxy_port)
+            data_list = json.load(open('proxy.json')).get('data')
+            for p in data_list:
+                proxy_ip = p.get('ip')
+                proxy_port = p.get('port')
+                proxy = str(proxy_ip) + ':' + str(proxy_port)
+                try:
+                    requests.get('https://m.weibo.cn', proxies={'https': 'https://'+proxy})
                     proxy_list.append(proxy)
+                except:
+                    continue
             try:
                 proxy = proxy_list[random.randint(0, len(proxy_list))]
                 return proxy
@@ -162,7 +165,7 @@ class ProxyMiddleware():
         #if request.meta.get('retry_times'):
         proxy = self.get_random_proxy()
         if proxy:
-            uri = 'http://{proxy}'.format(proxy=proxy)
+            uri = 'https://{proxy}'.format(proxy=proxy)
             self.logger.debug('使用代理' + proxy)
             request.meta['proxy'] = uri
 

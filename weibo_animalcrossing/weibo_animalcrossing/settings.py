@@ -107,10 +107,12 @@ MONGO_DATABASE = 'weibo'
 
 COOKIES_URL = 'http://localhost:5000/weibo/random'
 
-PROXY_URL = 'http://webapi.http.zhimacangku.com/getip?num=100&type=2&pro=&city=0&yys=0&port=1&time=3&ts=0&ys=0&cs=0&lb=1&sb=0&pb=4&mr=1&regions='
+#PROXY_URL = 'proxy.json'
 
 RETRY_ENABLED: True
 
 RETRY_HTTP_CODES = [301, 401, 403, 408, 414, 500, 502, 503, 504]
 
 RETRY_TIMES = 10
+
+#LOG_LEVEL = 'WARN'
