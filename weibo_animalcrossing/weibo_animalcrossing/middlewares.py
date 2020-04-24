@@ -148,11 +148,15 @@ class ProxyMiddleware():
                 proxy_ip = p.get('ip')
                 proxy_port = p.get('port')
                 proxy = str(proxy_ip) + ':' + str(proxy_port)
+                '''
+                #   测试代理是否可用,因为每次都会调用很浪费时间，待优化。
                 try:
                     requests.get('https://m.weibo.cn', proxies={'https': 'https://'+proxy})
                     proxy_list.append(proxy)
                 except:
                     continue
+                '''
+                proxy_list.append(proxy)
             try:
                 proxy = proxy_list[random.randint(0, len(proxy_list))]
                 return proxy

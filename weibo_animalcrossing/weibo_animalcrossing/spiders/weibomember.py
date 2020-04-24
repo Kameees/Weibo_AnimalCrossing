@@ -44,6 +44,7 @@ class WeibomemberSpider(scrapy.Spider):
                     weibo_item['description'] = user.get('description')
                     weibo_item['gender'] = user.get('gender')
                     weibo_item['text'] = mblog.get('text')
+                    weibo_item['text_little'] = re.compile(r'<[^>]+>', re.S).sub(" ", mblog.get('text'))
                     weibo_item['reposts_count'] = mblog.get('reposts_count')
                     weibo_item['comments_count'] = mblog.get('comments_count')
                     weibo_item['attitudes_count'] = mblog.get('attitudes_count')
@@ -52,7 +53,7 @@ class WeibomemberSpider(scrapy.Spider):
                     weibo_item['verified_reason'] = user.get('verified_reason')
                     weibo_item['scheme'] = weibo.get('scheme')
                     yield weibo_item
-        yield scrapy.Request(self.next_url.format(since_id=self.min_since_id), callback=self.weibo_parse)
+        yield scrapy.Request(self.next_url.format(since_id=self.min_since_id), callback=self.weibo_parse, dont_filter=True)
 
     def weibo_parse(self, response):
         """

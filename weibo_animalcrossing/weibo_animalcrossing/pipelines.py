@@ -67,10 +67,10 @@ class CsvPipeline(object):
     def open_spider(self, spider):
         self.file = open('weibo.csv', 'w', newline='', encoding='utf-8-sig')
         self.writer = csv.writer(self.file)
-        self.writer.writerow(['id', 'screen_name', 'verified', 'verified_type', 'verified_reason', 'created_at', 'profile_url', 'description', 'gender', 'text', 'reposts_count', 'comments_count', 'attitudes_count', 'scheme'])
+        self.writer.writerow(['id', 'screen_name', 'verified', 'verified_type', 'verified_reason', 'created_at', 'profile_url', 'description', 'gender', 'text', 'text_little', 'reposts_count', 'comments_count', 'attitudes_count', 'scheme'])
 
     def process_item(self, item, spider):
-        self.writer.writerow([item['id'], item['screen_name'], item['verified'], item['verified_type'], item['verified_reason'], item['created_at'], item['profile_url'], item['description'], item['gender'], item['text'], item['reposts_count'], item['comments_count'], item['attitudes_count'], item['scheme']])
+        self.writer.writerow([item['id'], item['screen_name'], item['verified'], item['verified_type'], item['verified_reason'], item['created_at'], item['profile_url'], item['description'], item['gender'], item['text'], item['text_little'], item['reposts_count'], item['comments_count'], item['attitudes_count'], item['scheme']])
         return item
 
     def close_spider(self, spider):
