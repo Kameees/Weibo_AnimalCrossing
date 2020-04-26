@@ -62,7 +62,7 @@ DOWNLOAD_DELAY = 5
 # Enable or disable downloader middlewares
 # See https://docs.scrapy.org/en/latest/topics/downloader-middleware.html
 DOWNLOADER_MIDDLEWARES = {
-    #'weibo_animalcrossing.middlewares.CookiesMiddleware': 554,
+    #'weibo_animalcrossing.middlewares.CookiesMiddleware': 80,
     'weibo_animalcrossing.middlewares.ProxyMiddleware': 90,
 }
 

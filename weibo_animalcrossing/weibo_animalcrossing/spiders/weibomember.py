@@ -31,11 +31,13 @@ class WeibomemberSpider(scrapy.Spider):
                 mblog = weibo.get('mblog')
                 if mblog:
                     user = mblog.get('user')
+                    # 获取最小since_id,下次请求使用
                     r_since_id = mblog['id']
                     if self.min_since_id:
                         self.min_since_id = r_since_id if self.min_since_id > r_since_id else self.min_since_id
                     else:
                         self.min_since_id = r_since_id
+                    #   获取各参数存入item
                     weibo_item = WeiboAnimalcrossingItem()
                     weibo_item['id'] = user.get('id')
                     weibo_item['screen_name'] = user.get('screen_name')

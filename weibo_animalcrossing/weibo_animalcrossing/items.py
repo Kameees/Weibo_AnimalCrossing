@@ -22,7 +22,7 @@ class WeiboAnimalcrossingItem(scrapy.Item):
     description = scrapy.Field()#用户个人简介
     gender = scrapy.Field()#性别，m为男性，f为女性
     text = scrapy.Field()#微博内容
-    text_little = scrapy.Field()
+    text_little = scrapy.Field()#清洗后的微博内容
     reposts_count = scrapy.Field()#转发数
     comments_count = scrapy.Field()#评论数
     attitudes_count = scrapy.Field()#点赞数
