@@ -1,7 +1,5 @@
 # Weibo_AnimalCrossing
-<br>
 <h4>微博超话“集合啦动物森友会”爬虫+数据分析</h4>
-<br>
 <br>爬虫代码参考:https://github.com/Python3WebSpider/Weibo
 <br>
 <br>最近在学scrapy和数据分析，本项目仅个人练习用。
@@ -13,6 +11,5 @@
 ## NEW UPDATE
 <br>
 <br>增加了付费代理池的设置，通过代理可以爬到1W+数据啦，只要购买的代理IP时间够长+数量多(100+)，按道理可以爬取超话10w+的数据。
-<br>
-**具体爬取过程文档可看个人博客**
+<br>**具体爬取过程文档可看个人博客
 <br><a href='http://47.95.233.148:4050/archives/scrapyweibospider'>[「Scrapy」爬取微博‘集合啦动物森友会’超话 ]</a>
